@@ -1,8 +1,9 @@
 import express from 'express';
 import img from './api/img'
+import logger from '../utilities/logger'
 const routes = express.Router();
 
-routes.get('/', (req,res) => {
+routes.get('/', logger, (req,res) => {
     res.send('main Api route')
     });
 
