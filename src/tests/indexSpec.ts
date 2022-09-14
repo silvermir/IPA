@@ -13,7 +13,7 @@ describe('Testing endpoints', () => {
     const response = await request.get('/api');
     expect(response.status).toBe(200);
     expect(response.text).toContain(
-      `Please visit <a href="http://localhost:3000/api/img?filename=&width=&height=">Please click here to change Image size or visit http://localhost:3000/api/img </a>`
+      `<a href="http://localhost:3000/api/img?filename=&width=&height=">Please click here to change Image size or visit http://localhost:3000/api/img </a>`
     );
   });
   it('should get the img endpoint', async () => {
