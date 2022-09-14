@@ -20,6 +20,7 @@ img.use('/', async (req, res) => {
     res.send('please type a valid height, it must be number');
   } else if (!fs.existsSync(outputFolder)) {
     fs.mkdirSync(outputFolder);
+  } else {
     try {
       await resizeImage({
         source: path.join(inputFolder, `${filename}.jpg`),
