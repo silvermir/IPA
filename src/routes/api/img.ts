@@ -14,25 +14,33 @@ img.use(
     const filename = req.query.filename as string;
     const width = req.query.width as string;
     const height = req.query.height as string;
+    const outputFile = path.join(
+      outputFolder,
+      `${filename}_${width}x${height}.jpg`
+    );
     if (!filename) {
       res.send('Please type a valid Filename');
-    } else if (!width || isNaN(Number(width))) {
-      res.send('please type a valid width, it must be number');
-    } else if (!height || isNaN(Number(height))) {
-      res.send('please type a valid height, it must be number');
+    } else if (!width || isNaN(Number(width)) || Number(width) <= 0) {
+      res.send('please type a valid width, it must be positive number');
+    } else if (!height || isNaN(Number(height)) || Number(height) <= 0) {
+      res.send('please type a valid height, it must be positive number');
     } else if (!fs.existsSync(outputFolder)) {
       fs.mkdirSync(outputFolder);
-    } else {
+    } else if (fs.existsSync(outputFile)) {
+      try {
+        res.sendFile(outputFile);
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (!fs.existsSync(outputFile)) {
       try {
         await resizeImage({
           source: path.join(inputFolder, `${filename}.jpg`),
           width: Number(width),
           height: Number(height),
-          target: path.join(outputFolder, `${filename}_${width}x${height}.jpg`),
+          target: outputFile,
         });
-        res.sendFile(
-          path.join(outputFolder, `${filename}_${width}x${height}.jpg`)
-        );
+        res.sendFile(outputFile);
       } catch (e) {
         console.log(e);
       }
