@@ -31,7 +31,7 @@ enter here the desired image height as a positive number
 
 
 ### example
-http://localhost:3000/api/image?filename=fjord&width=200&height=200
+http://localhost:3000/api/img?filename=fjord&width=200&height=200
 
 
 ## Scripts
